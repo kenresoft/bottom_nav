@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-A Flutter BottomNavigation package with extra funtions and flexibility and ease of usage.
+A Flutter BottomNavigation package with extra functions and flexibility and ease of usage.
 
 ## Features
 
