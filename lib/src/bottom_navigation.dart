@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'bottom_navigation_item.dart';
+
 class BottomNav extends StatefulWidget {
   const BottomNav({
     Key? key,
@@ -106,18 +108,3 @@ class _BottomNavState extends State<BottomNav> {
   }
 }
 
-class BottomNavItem extends StatelessWidget {
-  const BottomNavItem({
-    Key? key,
-    this.child = const SizedBox(),
-    required this.label,
-  }) : super(key: key);
-
-  final dynamic child;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return child;
-  }
-}
