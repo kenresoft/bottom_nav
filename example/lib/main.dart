@@ -10,9 +10,11 @@ void main() {
       bottomNavigationBar: const BottomNav(items: [
         BottomNavItem(
           label: 'Home',
+          child: FlutterLogo(),
         ),
         BottomNavItem(
           label: 'Home',
+          child: FlutterLogo(),
         ),
       ]),
     ),
