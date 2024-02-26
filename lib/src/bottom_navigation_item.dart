@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class BottomNavItem extends StatelessWidget {
   const BottomNavItem({
-    Key? key,
+    super.key,
     this.child = const SizedBox(),
     required this.label,
-  }) : super(key: key);
+  });
 
   final dynamic child;
   final String label;

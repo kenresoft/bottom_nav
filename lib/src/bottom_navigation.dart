@@ -4,7 +4,7 @@ import 'bottom_navigation_item.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({
-    Key? key,
+    super.key,
     required this.items,
     this.onTap,
     this.color = Colors.white,
@@ -22,7 +22,7 @@ class BottomNav extends StatefulWidget {
     this.height = 70,
     this.divider,
     this.labelStyle = const TextStyle(),
-  }) : super(key: key);
+  });
 
   final List<BottomNavItem> items;
   final Color color;
@@ -48,6 +48,21 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant BottomNav oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: widget.height,
@@ -63,43 +78,37 @@ class _BottomNavState extends State<BottomNav> {
                 label: widget.items[i].label,
                 child: widget.items[i].child is IconData
                     ? GestureDetector(
-                  onTap: () {
-                    widget.onTap!(i);
-                  },
-                  child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    widget.enableItemBackground
-                        ? i == widget.indexSelected
-                        ? Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(color: widget.backgroundSelected, borderRadius: widget.backgroundRadius),
-                        child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.colorSelected))
-                        : Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(color: Colors.transparent, borderRadius: widget.backgroundRadius),
-                        child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.color))
-                        : i == widget.indexSelected
-                        ? Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.colorSelected))
-                        : Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.color)),
-                    i == widget.indexSelected
-                        ? Text(widget.items[i].label, style: widget.labelStyle.copyWith(color: widget.colorSelected, fontSize: widget.labelSize))
-                        : Text(widget.items[i].label, style: widget.labelStyle.copyWith(color: widget.color, fontSize: widget.labelSize)),
-                  ]),
-                )
+                        onTap: () => widget.onTap == null ? {} : widget.onTap!(i),
+                        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                          widget.enableItemBackground
+                              ? i == widget.indexSelected
+                                  ? Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(color: widget.backgroundSelected, borderRadius: widget.backgroundRadius),
+                                      child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.colorSelected))
+                                  : Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(color: Colors.transparent, borderRadius: widget.backgroundRadius),
+                                      child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.color))
+                              : i == widget.indexSelected
+                                  ? Container(padding: const EdgeInsets.all(10), child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.colorSelected))
+                                  : Container(padding: const EdgeInsets.all(10), child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.color)),
+                          i == widget.indexSelected
+                              ? Text(widget.items[i].label, style: widget.labelStyle.copyWith(color: widget.colorSelected, fontSize: widget.labelSize))
+                              : Text(widget.items[i].label, style: widget.labelStyle.copyWith(color: widget.color, fontSize: widget.labelSize)),
+                        ]),
+                      )
                     : GestureDetector(
-                  onTap: () => widget.onTap!(i),
-                  child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    widget.items[i].child,
-                    widget.items[i].child is SizedBox
-                        ? i == widget.indexSelected
-                        ? Text(widget.items[i].label, style: TextStyle(color: widget.colorSelected, fontSize: widget.labelSize))
-                        : Text(widget.items[i].label, style: TextStyle(color: widget.color, fontSize: widget.labelSize))
-                        : const SizedBox(),
-                  ]),
-                ),
+                        onTap: () => widget.onTap == null ? {} : widget.onTap!(i),
+                        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                          widget.items[i].child,
+                          widget.items[i].child is SizedBox
+                              ? i == widget.indexSelected
+                                  ? Text(widget.items[i].label, style: TextStyle(color: widget.colorSelected, fontSize: widget.labelSize))
+                                  : Text(widget.items[i].label, style: TextStyle(color: widget.color, fontSize: widget.labelSize))
+                              : const SizedBox(),
+                        ]),
+                      ),
               ),
           ]),
         ),
@@ -107,4 +116,3 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 }
-
