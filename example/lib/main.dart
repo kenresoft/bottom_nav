@@ -7,16 +7,20 @@ void main() {
     home: Scaffold(
       appBar: AppBar(),
       body: const Center(),
-      bottomNavigationBar: const BottomNav(items: [
-        BottomNavItem(
-          label: 'Home',
-          child: FlutterLogo(),
-        ),
-        BottomNavItem(
-          label: 'Home',
-          child: FlutterLogo(),
-        ),
-      ]),
+      bottomNavigationBar: BottomNav(
+          onTap: (p0) {
+            print(p0.toString());
+          },
+          items: const [
+            BottomNavItem(
+              label: 'Home',
+              child: FlutterLogo(),
+            ),
+            BottomNavItem(
+              label: 'Home',
+              child: FlutterLogo(),
+            ),
+          ]),
     ),
   ));
 }
