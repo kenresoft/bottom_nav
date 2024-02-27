@@ -13,7 +13,7 @@ class ClickScaleIcon extends StatefulWidget {
   });
 
   @override
-  _ClickScaleIconState createState() => _ClickScaleIconState();
+  State<ClickScaleIcon> createState() => _ClickScaleIconState();
 }
 
 class _ClickScaleIconState extends State<ClickScaleIcon> {
