@@ -14,7 +14,7 @@ void main() {
           items: const [
             BottomNavItem(
               label: 'Home',
-              child: FlutterLogo(),
+              child: ClickScaleIcon(icon: Icons.content_paste_rounded, size: 24, color: Colors.blue),
             ),
             BottomNavItem(
               label: 'Home',
