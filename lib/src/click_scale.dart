@@ -22,11 +22,11 @@ class _ClickScaleIconState extends State<ClickScaleIcon> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      /*onTap: () {
         setState(() {
           _isClicked = !_isClicked;
         });
-      },
+      },*/
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
