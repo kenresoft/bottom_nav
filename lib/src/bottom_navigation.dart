@@ -19,7 +19,7 @@ class BottomNav extends StatefulWidget {
     this.margin,
     this.padding = const EdgeInsets.all(18.0),
     this.borderRadius,
-    this.height = 70,
+    this.height = 78,
     this.divider,
     this.labelStyle = const TextStyle(),
   });
@@ -116,53 +116,95 @@ class _BottomNavState extends State<BottomNav> with SingleTickerProviderStateMix
               child: AnimatedBuilder(
                 animation: _controller,
                 builder: (BuildContext context, Widget? child) {
-                  return ScaleTransition(
-                    scale: Tween<double>(begin: 1.0, end: 1.2).animate(_controller),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeInOut,
-                      transform: i == widget.indexSelected ? Matrix4.diagonal3Values(1.2, 1.2, 1.0) : Matrix4.identity(),
-                      color: i == widget.indexSelected ? Colors.white : widget.color,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          widget.enableItemBackground
-                              ? i == widget.indexSelected
-                                  ? Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(color: widget.backgroundSelected, borderRadius: widget.backgroundRadius),
-                                      child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.colorSelected))
-                                  : Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(color: Colors.transparent, borderRadius: widget.backgroundRadius),
-                                      child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.color))
-                              : i == widget.indexSelected
-                                  ? Container(padding: const EdgeInsets.all(10), child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.colorSelected))
-                                  : Container(padding: const EdgeInsets.all(10), child: Icon(widget.items[i].child, size: widget.iconSize, color: widget.color)),
-                          i == widget.indexSelected
-                              ? Text(widget.items[i].label, style: widget.labelStyle.copyWith(color: widget.colorSelected, fontSize: widget.labelSize))
-                              : Text(widget.items[i].label, style: widget.labelStyle.copyWith(color: widget.color, fontSize: widget.labelSize)),
-                        ],
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeInOut,
+                        transform: i == widget.indexSelected ? Matrix4.diagonal3Values(1.2, 1.2, 1.0) : Matrix4.identity(),
+                        decoration: i == widget.indexSelected
+                            ? BoxDecoration(color: widget.backgroundSelected, borderRadius: widget.backgroundRadius)
+                            : BoxDecoration(color: Colors.transparent, borderRadius: widget.backgroundRadius),
+                        child: Column(
+                          children: [
+                            Icon(widget.items[i].child, size: widget.iconSize, color: i == widget.indexSelected ? widget.colorSelected : widget.color),
+                            Text(
+                              widget.items[i].label,
+                              style: TextStyle(
+                                color: i == widget.indexSelected ? widget.colorSelected : widget.color,
+                                fontSize: widget.labelSize,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   );
                 },
               ),
             )
-          : GestureDetector(
-              onTap: () => widget.onTap == null ? {} : widget.onTap!(i),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  widget.items[i].child,
-                  widget.items[i].child is SizedBox
-                      ? i == widget.indexSelected
-                          ? Text(widget.items[i].label, style: TextStyle(color: widget.colorSelected, fontSize: widget.labelSize))
-                          : Text(widget.items[i].label, style: TextStyle(color: widget.color, fontSize: widget.labelSize))
-                      : const SizedBox(),
-                ],
-              ),
-            ),
+          : widget.items[i].child is Icon
+              ? GestureDetector(
+                  onTap: () => widget.onTap == null ? {} : widget.onTap!(i),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeInOut,
+                        transform: i == widget.indexSelected ? Matrix4.diagonal3Values(1.2, 1.2, 1.0) : Matrix4.identity(),
+                        decoration: i == widget.indexSelected
+                            ? BoxDecoration(color: widget.backgroundSelected, borderRadius: widget.backgroundRadius)
+                            : BoxDecoration(color: Colors.transparent, borderRadius: widget.backgroundRadius),
+                        child: Column(
+                          children: [
+                            Icon(
+                              (widget.items[i].child as Icon).icon,
+                              size: widget.iconSize,
+                              color: i == widget.indexSelected ? widget.colorSelected : widget.color,
+                            ),
+                            Text(
+                              widget.items[i].label,
+                              style: TextStyle(
+                                color: i == widget.indexSelected ? widget.colorSelected : widget.color,
+                                fontSize: widget.labelSize,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : GestureDetector(
+                  onTap: () => widget.onTap == null ? {} : widget.onTap!(i),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeInOut,
+                        transform: i == widget.indexSelected ? Matrix4.diagonal3Values(1.2, 1.2, 1.0) : Matrix4.identity(),
+                        decoration: i == widget.indexSelected
+                            ? BoxDecoration(color: widget.backgroundSelected, borderRadius: widget.backgroundRadius)
+                            : BoxDecoration(color: Colors.transparent, borderRadius: widget.backgroundRadius),
+                        child: Column(
+                          children: [
+                            widget.items[i].child,
+                            Text(
+                              widget.items[i].label,
+                              style: TextStyle(
+                                color: i == widget.indexSelected ? widget.colorSelected : widget.color,
+                                fontSize: widget.labelSize,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
     );
   }
 
