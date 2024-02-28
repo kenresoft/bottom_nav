@@ -78,13 +78,14 @@ class _BottomNavState extends State<BottomNav> with SingleTickerProviderStateMix
       children: [
         Container(
           height: widget.height,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(color: widget.backgroundColor, borderRadius: widget.borderRadius),
           child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             widget.divider == null ? const SizedBox() : widget.divider!,
             Container(
               margin: widget.margin,
               padding: widget.padding,
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, mainAxisSize: MainAxisSize.max, children: [
                 for (var i = 0; i < widget.items.length; ++i) _buildBottomNavItem(i),
               ]),
             ),
@@ -96,8 +97,12 @@ class _BottomNavState extends State<BottomNav> with SingleTickerProviderStateMix
           left: (widget.indexSelected * (MediaQuery.of(context).size.width / widget.items.length)),
           bottom: 0,
           child: Container(
-            color: Colors.blue.withOpacity(0.3),
-            height: widget.height,
+            margin: const EdgeInsets.all(12),
+            height: widget.height! - 24,
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(15),
+            ),
             width: MediaQuery.of(context).size.width / widget.items.length,
           ),
         ),

@@ -61,6 +61,9 @@ class _HomeState extends State<Home> {
           BottomNavItem(
             label: 'Home',
             child: FlutterLogo(),
+          ), BottomNavItem(
+            label: 'Home',
+            child: FlutterLogo(),
           ),
         ],
       ),
