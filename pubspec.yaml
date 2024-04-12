@@ -1,7 +1,7 @@
 name: bottom_nav
 description: A Flutter BottomNavigation package with extra functions and flexibility and ease of usage.
 version: 0.0.1
-homepage: ''
+homepage: 'https://github.com/kenresoft/bottom_nav'
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
