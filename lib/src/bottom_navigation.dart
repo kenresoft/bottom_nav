@@ -1,3 +1,5 @@
+import 'dart:developer' as d;
+
 import 'package:flutter/material.dart';
 
 import 'bottom_navigation_item.dart';
@@ -16,13 +18,13 @@ class BottomNav extends StatefulWidget {
     this.backgroundColor = Colors.grey,
     this.iconSize = 26,
     this.labelSize = 11,
-    this.margin,
+    this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.all(18.0),
     this.borderRadius,
     this.height = 78,
     this.divider,
     this.labelStyle = const TextStyle(),
-  });
+  }) : overlayWidth = 70;
 
   final List<BottomNavItem> items;
   final Color color;
@@ -35,12 +37,14 @@ class BottomNav extends StatefulWidget {
   final Color backgroundColor;
   final double iconSize;
   final double labelSize;
-  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
   final double? height;
   final BorderRadiusGeometry? borderRadius;
   final Widget? divider;
   final TextStyle labelStyle;
+
+  final double overlayWidth;
 
   @override
   State<BottomNav> createState() => _BottomNavState();
@@ -74,41 +78,65 @@ class _BottomNavState extends State<BottomNav> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: widget.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: widget.backgroundColor, borderRadius: widget.borderRadius),
-          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            widget.divider == null ? const SizedBox() : widget.divider!,
+    var width = MediaQuery.of(context).size.width;
+    return Container(
+      alignment: Alignment.bottomCenter,
+      height: widget.height,
+      child: Stack(
+        children: [
+          Container(
+            height: widget.height,
+            width: width,
+            decoration: BoxDecoration(color: widget.backgroundColor, borderRadius: widget.borderRadius),
+            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              widget.divider == null ? const SizedBox() : widget.divider!,
+              Container(
+                margin: widget.margin.log,
+                padding: widget.padding.log,
+                //width: width,
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, mainAxisSize: MainAxisSize.max, children: [
+                  for (var i = 0; i < widget.items.length; ++i) _buildBottomNavItem(i),
+                ]),
+              ),
+            ]),
+          ),
+          for (var i = 0; i < widget.items.length; ++i)
             Container(
               margin: widget.margin,
-              padding: widget.padding,
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, mainAxisSize: MainAxisSize.max, children: [
-                for (var i = 0; i < widget.items.length; ++i) _buildBottomNavItem(i),
-              ]),
+              padding: EdgeInsets.symmetric(
+                horizontal: widget.padding.resolve(TextDirection.ltr).left.log,
+              ).copyWith(
+                top: 10,
+                bottom: 10,
+              ),
+              width: width,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                alignment: FractionalOffset.fromOffsetAndSize(
+                  Offset(
+                    i * (width / widget.items.length) + widget.padding.resolve(TextDirection.ltr).left - widget.margin.resolve(TextDirection.ltr).left - 2,
+                    0,
+                  ),
+                  Size.fromWidth(
+                    width - (widget.padding.horizontal) - (widget.margin.horizontal) - spaceFactor,
+                  ),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  width: widget.overlayWidth,
+                ),
+              ),
             ),
-          ]),
-        ),
-        AnimatedPositioned(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-          left: (widget.indexSelected * (MediaQuery.of(context).size.width / widget.items.length)),
-          bottom: 0,
-          child: Container(
-            margin: const EdgeInsets.all(12),
-            height: widget.height! - 24,
-            decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            width: MediaQuery.of(context).size.width / widget.items.length,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
+
+  double get spaceFactor => widget.overlayWidth - 30;
 
   BottomNavItem _buildBottomNavItem(int i) {
     return BottomNavItem(
@@ -268,4 +296,11 @@ class _BottomNavState extends State<BottomNav> with SingleTickerProviderStateMix
             ),
     );
   }*/
+}
+
+extension Log<T> on T {
+  T get log {
+    d.log(toString());
+    return this;
+  }
 }
