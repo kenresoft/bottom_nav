@@ -12,6 +12,9 @@ class BottomNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return child;
+    return Container(
+      color: Colors.yellow,
+      child: child,
+    );
   }
 }
