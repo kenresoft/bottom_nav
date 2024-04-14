@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    MaterialApp(
+    const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
     ),
@@ -42,6 +42,7 @@ class _HomeState extends State<Home> {
           ],
         ),*/
       bottomNavigationBar: BottomNav(
+        //padding: EdgeInsets.all(15),
         onTap: (p0) {
           print(p0.toString());
           setState(() {
